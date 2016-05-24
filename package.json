@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=build",
     "dev": "webpack --progress --colors --watch --mode=dev",
-    "lint": "eslint . --fix",
+    "lint": "node_modules/eslint/bin/eslint.js . --fix",
     "test": "ava \"test/*.test.js\" --verbose",
     "cover": "nyc npm run test",
     "watch:test": "npm t -- --watch"
