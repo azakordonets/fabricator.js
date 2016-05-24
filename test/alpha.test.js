@@ -1,12 +1,13 @@
 import test from 'ava';
-import Fabricator from '../lib/fabricator.js';
+import Fabricator from '../src/index.js';
 
 let alpha;
 
-test.beforeEach(t => {
-  alpha = new Fabricator().alpha;
-});
+// test.beforeEach(() => {
+//   alpha = new Fabricator().alpha;
+// });
 
 test('I can get random number', t => {
-  t.true(Alphanumeric.number() > 0);
+  alpha = new Fabricator().alpha();
+  t.true(alpha.number() > 0);
 });

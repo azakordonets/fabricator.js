@@ -1,9 +1,9 @@
-export default class Alphanumeric {
-    constructor(lang="en") {
-        this._lang = lang
-    }
+export default class Alphanumeric{
+  constructor(lang = 'en') {
+    this.lang = lang;
+  }
 
-    get number() {
-        return Math.random()
-    }
+  number() {
+    return Math.random();
+  }
 }

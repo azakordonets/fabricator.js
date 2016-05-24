@@ -1,48 +1,51 @@
-var webpack = require('webpack');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var env = process.env.WEBPACK_ENV;
-var path = require('path');
+const webpack = require('webpack');
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+const env = process.env.WEBPACK_ENV;
+const path = require('path');
 
-var libraryName = 'fabricator';
+const libraryName = 'fabricator';
 
-var plugins = [], outputFile;
+const plugins = [];
+let outputFile;
 
 if (env === 'build') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = libraryName + '.min.js';
+  outputFile = `${libraryName}.min.js`;
 } else {
-  outputFile = libraryName + '.js';
+  outputFile = `${libraryName}.js`;
 }
 
-var config = {
-  entry: __dirname + '/src/index.js',
+const config = {
+  entry: `${__dirname}/src/index.js`,
   devtool: 'source-map',
   output: {
-    path: __dirname + '/lib',
+    path: `${__dirname}/lib`,
     filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
   },
   module: {
     loaders: [
       {
         test: /(\.jsx|\.js)$/,
         loader: 'babel',
-        exclude: /(node_modules|bower_components)/
+        exclude: /(node_modules|bower_components)/,
       },
       {
         test: /(\.jsx|\.js)$/,
-        loader: "eslint-loader",
-        exclude: /node_modules/
-      }
-    ]
+        loader: 'eslint-loader',
+        include: [`${__dirname}/src/`,
+                  `${__dirname}/test/`],
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
     root: path.resolve('./src'),
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
   },
-  plugins: plugins
+  plugins,
 };
 
 module.exports = config;

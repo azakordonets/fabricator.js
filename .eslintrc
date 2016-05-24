@@ -1,8 +1,31 @@
 {
-  "extends": "./node_modules/eslint-config-airbnb/base.js",
-  "rules": {
-    // disable requiring trailing commas because it might be nice to revert to
-    // being JSON at some point, and I don't want to make big changes now.
-    "comma-dangle": 0
-  }
+  "extends": "airbnb",
+
+  "ecmaFeatures": {
+    "globalReturn": true,
+    "jsx": true,
+    "modules": true
+  },
+
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+
+  "globals": {
+    "document": false,
+    "suite": true,
+    "escape": false,
+    "navigator": false,
+    "unescape": false,
+    "window": false,
+    "describe": true,
+    "before": true,
+    "it": true,
+    "expect": true,
+    "sinon": true
+  },
+
+  "parser": "babel-eslint"
 }

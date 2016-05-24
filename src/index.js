@@ -1,13 +1,13 @@
-import Alphanumeric from '/src/alpha.js';
+import Alpha from './alpha';
 
 export default class Fabricator {
 
-    constructor(lang = 'en') {
-        this._name = 'Fabricator';
-        this._lang = lang
-    }
+  constructor(lang = 'en') {
+    this.name = 'Fabricator';
+    this.lang = lang;
+  }
 
-    static alpha() {
-        return new Alphanumeric(this._lang)
-    }
+  alpha() {
+    return new Alpha(this.lang);
+  }
 }
