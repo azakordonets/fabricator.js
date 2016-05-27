@@ -28,6 +28,8 @@ node_modules
 
 #Compiled files
 *-compiled.js
+*.test-compiled.js
 
 #Final generated files
 lib/*
+lib/

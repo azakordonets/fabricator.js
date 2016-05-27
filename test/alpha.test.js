@@ -23,8 +23,8 @@ function randomNumberWithCustomRange(t, min, max) {
   for (let i = 0; i < 10; i++) {
     const number1 = alpha.randomNumber(min, max);
     const number2 = alpha.randomNumber(min, max);
-    t.true(isInt(number1))
-    t.true(isInt(number2))
+    t.true(isInt(number1));
+    t.true(isInt(number2));
     t.true(number1 !== number2);
     t.true(isInRange(number1, min, max));
     t.true(isInRange(number2, min, max));
@@ -38,4 +38,5 @@ test('generated number is in range', randomNumberWithCustomRange, 200, 300);
 test('generated number is in range', randomNumberWithCustomRange, -300, 500);
 test('generated number is in range', randomNumberWithCustomRange, -300, -100);
 test('generated number is in range', randomNumberWithCustomRange, 0, 9007199254740992);
-test('generated number is in range', randomNumberWithCustomRange, -9007199254740992, 9007199254740992);
+test('generated number is in range',
+    randomNumberWithCustomRange, -9007199254740992, 9007199254740992);
