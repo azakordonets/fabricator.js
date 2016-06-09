@@ -1,3 +1,7 @@
+function getRandomNumber(min, max) {
+  return Math.random() * (max - min + 1) + min;
+}
+
 export default class Alphanumeric {
   constructor(lang = 'en') {
     this.lang = lang;
@@ -14,8 +18,4 @@ export default class Alphanumeric {
   listOfRandomNumbers(length = 100, min = 0, max = 1000) {
     return new Array(length).fill(this.randomNumber(min, max));
   }
-}
-
-function getRandomNumber(min, max) {
-  return Math.random() * (max - min + 1) + min;
 }
