@@ -65,6 +65,9 @@
   },
   "homepage": "https://github.com/azakordonets/fabricator.js",
   "dependencies": {
-    "babel-eslint": "^5.0.0"
+    "babel-eslint": "^5.0.0",
+    "lodash": "^4.13.1",
+    "read-file-relative": "^1.2.0",
+    "rjson-search": "0.0.6"
   }
 }
