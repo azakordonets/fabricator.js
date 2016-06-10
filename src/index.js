@@ -2,7 +2,7 @@ import Alpha from './alpha';
 
 export default class Fabricator {
 
-  constructor(lang = 'en') {
+  constructor(lang = 'us') {
     this.name = 'Fabricator';
     this.lang = lang;
   }

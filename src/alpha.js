@@ -3,7 +3,7 @@ function getRandomNumber(min, max) {
 }
 
 export default class Alphanumeric {
-  constructor(lang = 'en') {
+  constructor(lang = 'us') {
     this.lang = lang;
   }
 
