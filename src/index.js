@@ -1,4 +1,5 @@
 import Alpha from './alpha';
+import Calendar from './calendar';
 
 export default class Fabricator {
 
@@ -9,5 +10,9 @@ export default class Fabricator {
 
   alpha() {
     return new Alpha(this.lang);
+  }
+
+  calendar() {
+    return new Calendar(this.lang);
   }
 }
