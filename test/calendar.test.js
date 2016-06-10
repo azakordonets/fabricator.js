@@ -32,7 +32,7 @@ test('Return am or pm randomly', t => {
 test('Calendar returns random second', t => {
   const second = calendar.second();
   t.regex(second, /\d{2}/);
-})
+});
 
 test('Calendar returns random minute', t => {
   const minute = calendar.minute();
@@ -79,4 +79,4 @@ test('Calendar returns a random century', t => {
   const century = calendar.century();
   const centuryArray = util.getValuesArray('calendar.centuries');
   t.true(_.includes(centuryArray, century));
-})
+});
