@@ -21,6 +21,13 @@ export default class Calendar {
   hour24(format24h = true) {
     return format24h ? this.alpha.randomNumber(1, 24) : this.alpha.randomNumber(1, 12);
   }
+
+  time(format24h = true) {
+    const hour = this.hour24(format24h);
+    if (hour <= 9) {
+      return `0${hour}:${this.minute()}`;
+    }
+    return `${hour}:${this.minute()}`;
   }
 
   ampm() {

@@ -53,6 +53,28 @@ test('Calendar return random hour in 12h format', t => {
   }
 });
 
+test('Calendar returns random time in 12h format', t => {
+  for (let i = 0; i <= 25; i++) {
+    const time = calendar.time(false);
+    t.regex(time, /\d{2}:\d{2}/);
+    const hour = parseInt(time.split(':')[0]);
+    const minute = time.split(':')[1];
+    t.true(hour > 0 && hour <= 12);
+    t.true(minute >= 0 && hour <= 59);
+  }
+});
+
+test('Calendar returns random time in 24h format', t => {
+  for (let i = 0; i <= 25; i++) {
+    const time = calendar.time();
+    t.regex(time, /\d{2}:\d{2}/);
+    const hour = parseInt(time.split(':')[0]);
+    const minute = time.split(':')[1];
+    t.true(hour > 0 && hour <= 24);
+    t.true(minute >= 0 && hour <= 59);
+  }
+});
+
 test('Calendar returns a random month as a number', t => {
   for (let i = 0; i < 15; i++) {
     const month = calendar.month({ asNumber: true });
