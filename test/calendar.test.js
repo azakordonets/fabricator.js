@@ -75,6 +75,18 @@ test('Calendar returns a random month as a string', t => {
   }
 });
 
+test('Calendar returns a random year ', t => {
+  const year = calendar.year();
+  t.true(year >= 1970 && year <= new Date().getFullYear());
+});
+
+test('Calendar returns a random year with custom range', t => {
+  const min = 1870;
+  const max = 1900;
+  const year = calendar.year({ min, max });
+  t.true(year >= min && year <= max);
+});
+
 test('Calendar returns a random century', t => {
   const century = calendar.century();
   const centuryArray = util.getValuesArray('calendar.centuries');

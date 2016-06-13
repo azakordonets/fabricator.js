@@ -39,6 +39,10 @@ export default class Calendar {
     return params.short ? month.substring(0, 3) : month;
   }
 
+  year(params = { min: 1970, max: new Date().getFullYear() }) {
+    return this.alpha.randomNumber(params.min, params.max);
+  }
+
   century() {
     return this.utility.getValue('calendar.centuries');
   }
