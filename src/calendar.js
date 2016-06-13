@@ -19,7 +19,8 @@ export default class Calendar {
   }
 
   hour24(format24h = true) {
-    return format24h ? this.alpha.randomNumber(0, 24) : this.alpha.randomNumber(0, 12);
+    return format24h ? this.alpha.randomNumber(1, 24) : this.alpha.randomNumber(1, 12);
+  }
   }
 
   ampm() {
