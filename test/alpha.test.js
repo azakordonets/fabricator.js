@@ -86,3 +86,16 @@ test('generated list of random numbers with custom range', t => {
   });
 });
 
+function numerifyTest(t, pattern, expectedRegex) {
+  const numerifyValue = alpha.numerify(pattern);
+  t.regex(numerifyValue, expectedRegex, `${numerifyValue} doesn't match ${expectedRegex} regex`);
+}
+
+numerifyTest.title = (providedTitle, pattern) =>
+  `${providedTitle} for ${pattern} pattern`;
+
+test('Numerify string ', numerifyTest, '##ABC', /\d{2}\w{3}/);
+test('Numerify string ', numerifyTest, '##ABC##', /\d{2}\w{3}\d{2}/);
+test('Numerify string ', numerifyTest, 'A#B#C#', /\d{1}\w{1}\d{1}\w{1}\d{1}/);
+test('Numerify string ', numerifyTest, 'ABC', /\w{3}/);
+test('Numerify string ', numerifyTest, '154,#$$%ABC', /\d{3}\W{1}\d{1}\W{3}\w{3}/);

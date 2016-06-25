@@ -1,2 +1,4 @@
 **/*-compiled.js
 lib/*.js
+**/coverage/*.js
+coverage/*.js

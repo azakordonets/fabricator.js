@@ -18,4 +18,14 @@ export default class Alphanumeric {
   listOfRandomNumbers(length = 100, min = 0, max = 1000) {
     return new Array(length).fill(this.randomNumber(min, max));
   }
+
+  numerify(pattern) {
+    return pattern.split('').map(val => {
+      if (val === '#') {
+        return this.randomNumber(1, 9);
+      }
+      return val;
+    }
+    ).join('');
+  }
 }
