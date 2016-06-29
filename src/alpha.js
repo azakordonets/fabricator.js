@@ -20,12 +20,6 @@ export default class Alphanumeric {
   }
 
   numerify(pattern) {
-    return pattern.split('').map(val => {
-      if (val === '#') {
-        return this.randomNumber(1, 9);
-      }
-      return val;
-    }
-    ).join('');
+    return pattern.replace(/#/g, this.randomNumber(0, 9));
   }
 }
