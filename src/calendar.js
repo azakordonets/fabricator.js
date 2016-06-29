@@ -45,7 +45,8 @@ export default class Calendar {
 
   month(params = { asNumber: false, short: false }) {
     if (params.asNumber) {
-      return this.alpha.randomNumber(1, 12);
+      const monthNumber = this.alpha.randomNumber(1, 12);
+      return monthNumber <= 9 ? `0${monthNumber}` : monthNumber;
     }
     const month = this.utility.getValue('calendar.month');
     return params.short ? month.substring(0, 3) : month;
