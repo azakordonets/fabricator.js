@@ -1,7 +1,7 @@
 import UtilityService from './utility';
 import Alphanumeric from './alpha';
 import DateRange from './entities/dateRange';
-import dateformat from 'dateformat';
+import moment from 'moment';
 
 export default class Calendar {
 
@@ -58,13 +58,13 @@ export default class Calendar {
     return this.alpha.randomNumber(params.min, params.max);
   }
 
-  date(options = { format: 'dd-mm-yyyy', asString: false }) {
+  date(options = { format: 'DD-MM-YYYY', asString: false }) {
     let randomDate = new Date(`${this.month({ asNumber: true })}-${this.day()}-${this.year()}`);
     while (Object.prototype.toString.call(randomDate) !== '[object Date]') {
       randomDate = this.date({ format: options.format, asString: options.asString });
     }
     if (options.asString) {
-      return dateformat(randomDate, options.format);
+      return moment(randomDate).format(options.format);
     }
     return randomDate;
   }
