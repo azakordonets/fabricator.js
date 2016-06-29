@@ -184,6 +184,16 @@ test(`Generate random ${contact.country()} country`, t => {
   t.true(contains(countryArray, country));
 });
 
+test(`Generate random ${contact.city()} city`, t => {
+  const city = contact.city();
+  const prefix = city.split(' ')[0];
+  const suffix = city.split(' ')[1];
+  const prefixArray = utility.getValuesArray('address.city_prefix');
+  const suffixArray = utility.getValuesArray('address.city_suffix');
+  t.true(contains(prefixArray, prefix));
+  t.true(contains(suffixArray, suffix));
+});
+
 test(`Generate random ${contact.state()} state`, t => {
   const state = contact.state();
   const stateArray = utility.getValuesArray('address.state');
