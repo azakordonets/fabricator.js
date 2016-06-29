@@ -75,6 +75,11 @@ test('Calendar returns random time in 24h format', t => {
   }
 });
 
+test('Calendar returns a random day', t => {
+  const randomDay = calendar.day();
+  t.true(randomDay >= 1 && randomDay <= 31);
+});
+
 test('Calendar returns a random month as a number', t => {
   for (let i = 0; i < 15; i++) {
     const month = calendar.month({ asNumber: true });

@@ -34,6 +34,11 @@ export default class Calendar {
     return this.alpha.randomNumber(0, 10) < 5 ? 'am' : 'pm';
   }
 
+  day() {
+    const randomDay = this.alpha.randomNumber(1, 31);
+    return randomDay <= 9 ? `0${randomDay}` : randomDay;
+  }
+
   dayOfWeek() {
     return this.utility.getValue('calendar.day_of_week');
   }
