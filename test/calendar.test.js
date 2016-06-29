@@ -5,21 +5,21 @@ import _ from 'lodash';
 
 const fabricator = new Fabricator();
 const calendar = fabricator.calendar();
-const alpha = fabricator.alpha();
+// const alpha = fabricator.alpha();
 const util = new UtilityService();
 
-const dayDifferenceBetweenDays = (date1, date2) => {
-  const timeDiff = Math.abs(date2.getTime() - date1.getTime());
-  return Math.round(timeDiff / (1000 * 3600 * 24));
-};
+// const dayDifferenceBetweenDays = (date1, date2) => {
+//   const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+//   return Math.round(timeDiff / (1000 * 3600 * 24));
+// };
+//
+// const hourDifferenceBetweenDates = (date1, date2) => {
+//   return Math.abs(date1 - date2) / 36e5;
+// };
 
-const hourDifferenceBetweenDates = (date1, date2) => {
-  return Math.abs(date1 - date2) / 36e5;
-};
-
-const formatDate = (date) => {
-  return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
-};
+// const formatDate = (date) => {
+//   return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+// };
 
 test('Calendar returns random day of the week', t => {
   const dayOfTheWeek = calendar.dayOfWeek();
