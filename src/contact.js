@@ -2,6 +2,7 @@ import UtilityService from './utility';
 import Alphanumeric from './alpha';
 import Calendar from './calendar';
 import moment from 'moment';
+import _ from 'lodash';
 export default class Contact {
   constructor(lang = 'us') {
     this.lang = lang;
@@ -42,8 +43,10 @@ export default class Contact {
     return `${prefixValue} ${firstNameValue} ${lastNameValue} ${suffixValue}`.trim();
   }
 
-  birthDate(options = { age: this.alpha.randomNumber(18, 60),
-                        format: 'DD-MM-YYYY', asString: false }) {
+  birthDate(options = {
+    age: this.alpha.randomNumber(18, 60),
+    format: 'DD-MM-YYYY', asString: false,
+  }) {
     const now = new Date();
     // Initialize this consts in case options passed but not with all parameters included
     const age = options.age ? options.age : this.alpha.randomNumber(18, 60);
@@ -59,17 +62,17 @@ export default class Contact {
 
   email(specificDomain = '') {
     const domain = specificDomain === '' ?
-                  this.utility.getValue('internet.free_email') :
-                  specificDomain;
+      this.utility.getValue('internet.free_email') :
+      specificDomain;
     return `${this.firstName().toLowerCase()}_` +
-            `${this.lastName().toLowerCase()}` +
-            `${this.alpha.randomNumber(1000, 9999)}@${domain}`;
+      `${this.lastName().toLowerCase()}` +
+      `${this.alpha.randomNumber(1000, 9999)}@${domain}`;
   }
 
   phoneNumber(format = '') {
     const phoneFormat = format === '' ?
-                        this.utility.getValue('phone_number.phone_formats') :
-                        format;
+      this.utility.getValue('phone_number.phone_formats') :
+      format;
     return this.alpha.numerify(phoneFormat);
   }
 
@@ -101,7 +104,8 @@ export default class Contact {
   }
 
   city() {
-    return `${this.utility.getValue('address.city_prefix')} ${this.utility.getValue('address.city_suffix')}`;
+    return `${this.utility.getValue('address.city_prefix')} ` +
+            `${this.utility.getValue('address.city_suffix')}`;
   }
 
   state() {
@@ -134,7 +138,7 @@ export default class Contact {
     if (cm) {
       return `${this.alpha.randomNumber(150, 220)} cm`;
     }
-    return `${this.alpha.randomFloat(1.55, 2.250, 3)} m`;
+    return `${_.random(1.55, 2.25, 3).toFixed(2)} m`;
   }
 
   weight(metric = true) {
