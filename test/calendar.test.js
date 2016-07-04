@@ -141,7 +141,7 @@ test('Calendar returns random date as Date object', t => {
   t.not(randomDate1, randomDate2);
 });
 
-test('Calenar returns random date as string', t => {
+test('Calendar returns random date as string', t => {
   const randomDate = calendar.date({ asString: true });
   t.true(typeof randomDate === 'string');
 });
