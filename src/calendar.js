@@ -63,7 +63,7 @@ export default class Calendar {
     while (Object.prototype.toString.call(randomDate) !== '[object Date]') {
       randomDate = this.date({ format: options.format, asString: options.asString });
     }
-    if (options.asString) {
+    if (options.asString || options.format !== 'DD-MM-YYYY') {
       return moment(randomDate).format(options.format);
     }
     return randomDate;

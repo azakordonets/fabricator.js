@@ -134,16 +134,23 @@ test('Calendar returns a random century', t => {
 });
 
 test('Calendar returns random date as Date object', t => {
-  const randomDate1 = calendar.date();
-  const randomDate2 = calendar.date();
-  t.true(typeof randomDate1 === 'object');
-  t.true(typeof randomDate2 === 'object');
-  t.not(randomDate1, randomDate2);
+  for (let i = 0; i < 10; i++) {
+    const randomDate1 = calendar.date();
+    const randomDate2 = calendar.date();
+    t.true(typeof randomDate1 === 'object');
+    t.true(typeof randomDate2 === 'object');
+    t.not(randomDate1, randomDate2);
+  }
 });
 
 test('Calendar returns random date as string', t => {
   const randomDate = calendar.date({ asString: true });
   t.true(typeof randomDate === 'string');
+});
+
+test(`Calendar returns random ${calendar.date({ format: 'DD-MM-YY' })} with custom format`, t => {
+  const randomDate = calendar.date({ format: 'DD-MM-YY' });
+  t.regex(randomDate, /\d{2}-\d{2}-\d{2}/);
 });
 
 
