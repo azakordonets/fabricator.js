@@ -73,7 +73,7 @@ export default class Calendar {
     return this.utility.getValue('calendar.centuries');
   }
 
-  dateRange() {
+  static dateRange() {
     return new DateRange();
   }
 }
