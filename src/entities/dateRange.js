@@ -53,6 +53,11 @@ export default class DateRange {
     return this;
   }
 
+  withEndDay(day) {
+    this.endDay = day;
+    return this;
+  }
+
   withEndMonth(month) {
     this.endMonth = month;
     return this;
@@ -104,7 +109,7 @@ export default class DateRange {
           break;
         }
         case 'day' : {
-          const newDayDate = new Date(startDate.setDate(startDate.getDay() + 1));
+          const newDayDate = new Date(startDate.setDate(startDate.getDate() + 1));
           if (newDayDate < endDate) {
             datesRange.push(newDayDate);
           }
@@ -119,7 +124,7 @@ export default class DateRange {
           break;
         }
         case 'year' : {
-          const newYearDate = new Date(startDate.setYear(startDate.getYear() + 1));
+          const newYearDate = new Date(startDate.setFullYear(startDate.getFullYear() + 1));
           if (newYearDate < endDate) {
             datesRange.push(newYearDate);
           }
