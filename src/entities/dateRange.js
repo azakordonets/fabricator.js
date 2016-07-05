@@ -1,3 +1,4 @@
+import moment from 'moment';
 export default class DateRange {
   constructor() {
     this.now = new Date();
@@ -13,6 +14,8 @@ export default class DateRange {
     this.endYear = this.startYear + 1;
     this.stepValue = 1;
     this.stepType = 'month';
+    this.returnAsString = false;
+    this.stringFormat = 'DD-MM-YYYY';
   }
 
   withStartMinute(minute) {
@@ -63,6 +66,14 @@ export default class DateRange {
   stepEvery(stepValue, stepType) {
     this.stepValue = stepValue;
     this.stepType = stepType;
+    return this;
+  }
+
+  asString(format) {
+    this.returnAsString = true;
+    if (format) {
+      this.stringFormat = format;
+    }
     return this;
   }
 
@@ -120,7 +131,9 @@ export default class DateRange {
         }
       }
     }
-
+    if (this.returnAsString) {
+      return datesRange.map(date => moment(date).format(this.stringFormat));
+    }
     return datesRange;
   }
 }
