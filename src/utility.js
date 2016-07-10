@@ -21,4 +21,9 @@ export default class UtilityService {
     return _.at(json, name)[0];
   }
 
+  getJsonFromFile(fileName) {
+    const data = readFile.readSync(fileName).toString();
+    return JSON.parse(data).code;
+  }
+
 }
