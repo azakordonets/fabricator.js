@@ -1,6 +1,7 @@
 import Alpha from './alpha';
 import Calendar from './calendar';
 import Contact from './contact';
+import Location from './location';
 
 export default class Fabricator {
 
@@ -19,5 +20,9 @@ export default class Fabricator {
 
   contact() {
     return new Contact(this.lang);
+  }
+
+  location() {
+    return new Location(this.lang);
   }
 }
