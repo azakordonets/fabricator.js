@@ -1,8 +1,6 @@
 import Alpha from './alpha';
 import Calendar from './calendar';
 import Contact from './contact';
-import Location from './location';
-
 export default class Fabricator {
 
   constructor(lang = 'us') {
@@ -22,7 +20,5 @@ export default class Fabricator {
     return new Contact(this.lang);
   }
 
-  location() {
-    return new Location(this.lang);
   }
 }
