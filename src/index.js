@@ -1,6 +1,7 @@
 import Alpha from './alpha';
 import Calendar from './calendar';
 import Contact from './contact';
+import Words from './words';
 export default class Fabricator {
 
   constructor(lang = 'us') {
@@ -20,5 +21,7 @@ export default class Fabricator {
     return new Contact(this.lang);
   }
 
+  text() {
+    return new Words(this.lang);
   }
 }

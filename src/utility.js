@@ -21,4 +21,11 @@ export default class UtilityService {
     return _.at(json, name)[0];
   }
 
+  getWord() {
+    const words = readFile.readSync(this.wordsFileName);
+    const json = JSON.parse(words);
+    const wordsArray = _.at(json, 'words')[0];
+    return wordsArray[_.random(0, wordsArray.length - 1)];
+  }
+
 }
