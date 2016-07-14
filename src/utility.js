@@ -7,7 +7,7 @@ export default class UtilityService {
     this.lang = lang;
     this.resourceFileName = `/resources/${this.lang}.json`;
     this.alpha = new Alphanumeric();
-    this.wordsFileName = `/resources/${this.lang}.json`;
+    this.wordsFileName = `/resources/words_${this.lang}.json`;
   }
 
   getValue(name) {
@@ -19,6 +19,13 @@ export default class UtilityService {
     const data = readFile.readSync(this.resourceFileName);
     const json = JSON.parse(data);
     return _.at(json, name)[0];
+  }
+
+  getWord() {
+    const words = readFile.readSync(this.wordsFileName);
+    const json = JSON.parse(words);
+    const wordsArray = _.at(json, 'words')[0];
+    return wordsArray[_.random(0, wordsArray.length - 1)];
   }
 
 }
