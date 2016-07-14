@@ -1,11 +1,9 @@
 import UtilityService from './utility';
-import Alphanumeric from './alpha';
 export default class Words {
 
   constructor(lang = 'us') {
     this.lang = lang;
     this.util = new UtilityService(lang);
-    this.alpha = new Alphanumeric(lang);
   }
 
   word() {
