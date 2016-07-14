@@ -7,7 +7,7 @@ export default class UtilityService {
     this.lang = lang;
     this.resourceFileName = `/resources/${this.lang}.json`;
     this.alpha = new Alphanumeric();
-    this.wordsFileName = `/resources/${this.lang}.json`;
+    this.wordsFileName = `/resources/words_${this.lang}.json`;
   }
 
   getValue(name) {
