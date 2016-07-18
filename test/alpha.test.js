@@ -5,7 +5,7 @@ const alpha = new Fabricator().alpha();
 
 const isInt = number => Number(number) === number && number % 1 === 0;
 
-const isFloat = number => !!(number % 1);
+const isFloat = number => String(number).includes('.');
 
 function isInRange(number, min, max) {
   return number >= min && number <= max;
@@ -60,8 +60,10 @@ test('generates random number with floating point in default range (0 to 1000)' 
   t.true(isFloat(number1));
   t.true(isFloat(number2));
   t.notDeepEqual(number1, number2);
-  t.true(number1 >= 0 && number1 <= 1000);
-  t.true(number2 >= 0 && number2 <= 1000);
+  t.true(number1 >= 0);
+  t.true(number1 <= 1000);
+  t.true(number2 >= 0);
+  t.true(number2 <= 1000);
 });
 
 /**
@@ -73,7 +75,8 @@ test('generated list of random numbers', t => {
   t.deepEqual(100, listOfRandomNumbers.length);
   listOfRandomNumbers.forEach((number) => {
     t.true(isInt(number));
-    t.true(number >= 0 && number <= 1000);
+    t.true(number >= 0);
+    t.true(number <= 1000);
   });
 });
 
@@ -84,8 +87,41 @@ test('generated list of random numbers with custom range', t => {
   t.deepEqual(100, listOfRandomNumbers.length);
   listOfRandomNumbers.forEach((number) => {
     t.true(isInt(number));
-    t.true(number >= min && number <= max);
+    t.true(number >= min);
+    t.true(number <= max);
   });
+});
+
+test('generated list of random floats with custom range', t => {
+  const min = 300;
+  const max = 4000;
+  const listOfRandomNumbers = alpha.listOfRandomFloats({ amount: 50, min, max, precision: 2 });
+  t.deepEqual(50, listOfRandomNumbers.length);
+  listOfRandomNumbers.forEach((number) => {
+    t.true(isFloat(number));
+    t.true(number >= min);
+    t.true(number <= max);
+  });
+});
+
+test(`Generate random ${alpha.string()} string with default length`, t => {
+  const string = alpha.string();
+  t.is(string.length, 30);
+  t.regex(string, /\w+/g);
+});
+
+test(`Generate random ${alpha.string({ max: 10 })} string with length = 10`, t => {
+  const string = alpha.string({ max: 10 });
+  t.is(string.length, 10);
+  t.regex(string, /\w+/g);
+});
+
+test(`Generate random ${alpha.string({ max: 10 })} string with length and from section`, t => {
+  const from = 'ABCDEFG';
+  const string = alpha.string({ max: 10, from });
+  t.is(string.length, 10);
+  t.regex(string, /\w+/g);
+  string.split('').map(char => t.true(from.includes(char)));
 });
 
 function numerifyTest(t, pattern, expectedRegex) {
