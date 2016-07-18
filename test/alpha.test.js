@@ -21,14 +21,16 @@ test('generates random number from default range (0 to 1000)', t => {
   t.true(isInt(number1));
   t.true(isInt(number2));
   t.notDeepEqual(number1, number2);
-  t.true(number1 >= 0 && number1 <= 1000);
-  t.true(number2 >= 0 && number2 <= 1000);
+  t.true(number1 >= 0);
+  t.true(number1 <= 1000);
+  t.true(number2 >= 0);
+  t.true(number2 <= 1000);
 });
 
 
 function randomNumberWithCustomRange(t, min, max) {
-  const number1 = alpha.randomNumber(min, max);
-  const number2 = alpha.randomNumber(min, max);
+  const number1 = alpha.randomNumber({ min, max });
+  const number2 = alpha.randomNumber({ min, max });
   t.true(isInt(number1));
   t.true(isInt(number2));
   t.true(number1 !== number2);
@@ -78,7 +80,7 @@ test('generated list of random numbers', t => {
 test('generated list of random numbers with custom range', t => {
   const min = 300;
   const max = 4000;
-  const listOfRandomNumbers = alpha.listOfRandomNumbers(100, min, max);
+  const listOfRandomNumbers = alpha.listOfRandomNumbers({ amount: 100, min, max });
   t.deepEqual(100, listOfRandomNumbers.length);
   listOfRandomNumbers.forEach((number) => {
     t.true(isInt(number));

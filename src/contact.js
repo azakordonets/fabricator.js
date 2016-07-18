@@ -44,12 +44,12 @@ export default class Contact {
   }
 
   birthDate(options = {
-    age: this.alpha.randomNumber(18, 60),
+    age: this.alpha.randomNumber({ min: 18, max: 60 }),
     format: 'DD-MM-YYYY', asString: false,
   }) {
     const now = new Date();
     // Initialize this consts in case options passed but not with all parameters included
-    const age = options.age ? options.age : this.alpha.randomNumber(18, 60);
+    const age = options.age ? options.age : this.alpha.randomNumber({ min: 18, max: 60 });
     const format = options.format ? options.format : 'DD-MM-YYYY';
     const asString = options.asString ? options.asString : false;
     const randomDate = this.calendar.date();
@@ -66,7 +66,7 @@ export default class Contact {
       specificDomain;
     return `${this.firstName().toLowerCase()}_` +
       `${this.lastName().toLowerCase()}` +
-      `${this.alpha.randomNumber(1000, 9999)}@${domain}`;
+      `${this.alpha.randomNumber({ min: 1000, max: 9999 })}@${domain}`;
   }
 
   phoneNumber(format = '') {
@@ -121,7 +121,7 @@ export default class Contact {
   }
 
   bsn() {
-    const firstFour = String(this.alpha.randomNumber(1000, 9999));
+    const firstFour = String(this.alpha.randomNumber({ min: 1000, max: 9999 }));
     const lastFour = firstFour.split('').reverse().join('');
     return `${firstFour}${lastFour}0`;
   }
@@ -136,16 +136,16 @@ export default class Contact {
 
   height(cm = false) {
     if (cm) {
-      return `${this.alpha.randomNumber(150, 220)} cm`;
+      return `${this.alpha.randomNumber({ min: 150, max: 220 })} cm`;
     }
     return `${_.random(1.55, 2.25, 3).toFixed(2)} m`;
   }
 
   weight(metric = true) {
     if (metric) {
-      return `${this.alpha.randomNumber(50, 110)} kg`;
+      return `${this.alpha.randomNumber({ min: 50, max: 110 })} kg`;
     }
-    return `${this.alpha.randomNumber(30, 90)} lbs`;
+    return `${this.alpha.randomNumber({ min: 30, max: 90 })} lbs`;
   }
 
   bloodType() {

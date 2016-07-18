@@ -225,7 +225,7 @@ dateStartValuesTest.title = (providedTitle, value, valueType) =>
 
 
 test('Calendar returns default date range',
-  dateStartValuesTest, alpha.randomNumber(1, 59), 'minute', 12, 1);
+  dateStartValuesTest, alpha.randomNumber({ min: 1, max: 59 }), 'minute', 12, 1);
 
 test('Calendar returns default date range',
   dateStartValuesTest, calendar.hour24(), 'hour', 11, 1);
@@ -303,7 +303,7 @@ dateEndValuesTest.title = (providedTitle, value, valueType) =>
 
 
 test('Calendar returns default date range',
-  dateEndValuesTest, alpha.randomNumber(1, 59), 'minute', 12, 1);
+  dateEndValuesTest, alpha.randomNumber({ min: 1, max: 59 }), 'minute', 12, 1);
 
 test('Calendar returns default date range',
   dateEndValuesTest, calendar.hour24(), 'hour', 11, 1);
