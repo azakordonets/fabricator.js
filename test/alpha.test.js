@@ -137,3 +137,52 @@ test('Numerify string ', numerifyTest, '##ABC##', /\d{2}\w{3}\d{2}/);
 test('Numerify string ', numerifyTest, 'A#B#C#', /\d{1}\w{1}\d{1}\w{1}\d{1}/);
 test('Numerify string ', numerifyTest, 'ABC', /\w{3}/);
 test('Numerify string ', numerifyTest, '154,#$$%ABC', /\d{3}\W{1}\d{1}\W{3}\w{3}/);
+
+function letterifyTest(t, pattern, expectedRegex) {
+  const letterifyValue = alpha.letterify(pattern);
+  t.regex(letterifyValue, expectedRegex, `${letterifyValue} doesn't match ${expectedRegex} regex`);
+}
+
+letterifyTest.title = (providedTitle, pattern) =>
+  `${providedTitle} for ${pattern} pattern`;
+
+test('Letterify string ', letterifyTest, '??123', /\w{2}\d{3}/);
+test('Letterify string ', letterifyTest, '??123??', /\w{2}\d{3}\w{2}/);
+test('Letterify string ', letterifyTest, '1?2?3?', /\w{1}\d{1}\w{1}\d{1}\w{1}/);
+test('Letterify string ', letterifyTest, '123', /\d{3}/);
+test('Letterify string ', letterifyTest, '154,?$$%123', /\d{3}\W{1}\w{1}\W{3}\d{3}/);
+
+function botifyTest(t, pattern, expectedRegex) {
+  const botifyValue = alpha.botify(pattern);
+  t.regex(botifyValue, expectedRegex, `${botifyValue} doesn't match ${expectedRegex} regex`);
+}
+
+botifyTest.title = (providedTitle, pattern) =>
+  `${providedTitle} for ${pattern} pattern`;
+
+test('Botify string ', botifyTest, '??###', /\w{2}\d{3}/);
+test('Botify string ', botifyTest, '??###??', /\w{2}\d{3}\w{2}/);
+test('Botify string ', botifyTest, '#?#?#?', /\w{1}\d{1}\w{1}\d{1}\w{1}/);
+test('Botify string ', botifyTest, '###', /\w{3}/);
+test('Botify string ', botifyTest, '###,?$$%###', /\d{3}\W{1}\w{1}\W{3}\d{3}/);
+
+test(`Generate random ${alpha.randomHash()} hash`, t => {
+  const hash = alpha.randomHash();
+  t.is(hash.length, 40);
+  const from = '0123456789abcdef';
+  hash.split('').map(char => t.true(from.includes(char)));
+});
+
+test(`Generate random ${alpha.randomHash()} hash with custom length`, t => {
+  const hash = alpha.randomHash(10);
+  t.is(hash.length, 10);
+  const from = '0123456789abcdef';
+  hash.split('').map(char => t.true(from.includes(char)));
+});
+
+test(`Generate random ${alpha.randomGuid()} guid`, t => {
+  for (let count = 0; count < 10; count++) {
+    const guid = alpha.randomGuid();
+    t.regex(guid, /\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g);
+  }
+});

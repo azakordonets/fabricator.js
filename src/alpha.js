@@ -34,9 +34,43 @@ export default class Alphanumeric {
     const precision = params.precision ? params.precision : 5;
     return new Array(amount).fill(this.randomFloat({ min, max, precision }));
   }
+
+  string(params = {}) {
+    const from = params.from ? params.from :
+      '0123456789abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_';
+    const amount = params.max ? params.max : 30;
+    const charsArray = [];
+    for (let index = 0; index < amount; index++) {
+      charsArray.push(from[this.randomNumber({ min: 0, max: from.length - 1 })]);
+    }
+    return charsArray.join('');
+  }
+
+  letterify(pattern) {
+    return pattern.replace(/\?/g, this.string({ max: 1 }));
   }
 
   numerify(pattern) {
     return pattern.replace(/#/g, this.randomNumber({ min: 0, max: 9 }));
+  }
+
+  botify(pattern) {
+    return this.letterify(this.numerify(pattern));
+  }
+
+  randomHash(length = 40) {
+    return this.string({ from: '0123456789abcdef', max: length });
+  }
+
+  randomGuid(version = 5) {
+    const guidPool = 'abcdef1234567890';
+    const variantPool = 'ab89';
+    return `${this.string({ from: guidPool, max: 8 })}-` +
+      `${this.string({ from: guidPool, max: 4 })}-` +
+      `${version}` +
+      `${this.string({ from: guidPool, max: 3 })}-` +
+      `${this.string({ from: variantPool, max: 1 })}` +
+      `${this.string({ from: guidPool, max: 3 })}-` +
+      `${this.string({ from: guidPool, max: 12 })}`;
   }
 }
