@@ -12,7 +12,7 @@ export default class Calendar {
   }
 
   second() {
-    const second = this.alpha.randomNumber(0, 59);
+    const second = this.alpha.randomNumber({ max: 59 });
     return second <= 9 ? `0${second}` : second;
   }
 
@@ -21,7 +21,8 @@ export default class Calendar {
   }
 
   hour24(format24h = true) {
-    return format24h ? this.alpha.randomNumber(1, 24) : this.alpha.randomNumber(1, 12);
+    return format24h ? this.alpha.randomNumber({ min: 1, max: 24 }) :
+                       this.alpha.randomNumber({ min: 1, max: 12 });
   }
 
   time(format24h = true) {
@@ -33,11 +34,11 @@ export default class Calendar {
   }
 
   ampm() {
-    return this.alpha.randomNumber(0, 10) < 5 ? 'am' : 'pm';
+    return this.alpha.randomNumber({ max: 10 }) < 5 ? 'am' : 'pm';
   }
 
   day() {
-    const randomDay = this.alpha.randomNumber(1, 31);
+    const randomDay = this.alpha.randomNumber({ min: 1, max: 31 });
     return randomDay <= 9 ? `0${randomDay}` : randomDay;
   }
 
@@ -47,7 +48,7 @@ export default class Calendar {
 
   month(params = { asNumber: false, short: false }) {
     if (params.asNumber) {
-      const monthNumber = this.alpha.randomNumber(1, 12);
+      const monthNumber = this.alpha.randomNumber({ min: 1, max: 12 });
       return monthNumber <= 9 ? `0${monthNumber}` : monthNumber;
     }
     const month = this.utility.getValue('calendar.month');
@@ -55,7 +56,9 @@ export default class Calendar {
   }
 
   year(params = { min: 1940, max: new Date().getFullYear() }) {
-    return this.alpha.randomNumber(params.min, params.max);
+    const min = params.min ? params.min : 1940;
+    const max = params.max ? params.max : new Date().getFullYear();
+    return this.alpha.randomNumber({ min, max });
   }
 
   date(options = { format: 'DD-MM-YYYY', asString: false }) {

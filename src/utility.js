@@ -12,7 +12,7 @@ export default class UtilityService {
 
   getValue(name) {
     const valuesArray = this.getValuesArray(name);
-    return valuesArray[this.alpha.randomNumber(0, valuesArray.length - 1)];
+    return valuesArray[this.alpha.randomNumber({ max: valuesArray.length - 1 })];
   }
 
   getValuesArray(name) {
