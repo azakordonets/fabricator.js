@@ -10,17 +10,21 @@ export default class Words {
     return this.util.getWord();
   }
 
+  words(amount) {
+    const words = [];
+    for (let count = 0; count < amount; count++) {
+      words.push(this.word());
+    }
+    return words;
+  }
+
   sentence(params = { wordsCount: 10, asArray: false }) {
-    const count = params.wordsCount ? params.wordsCount : 10;
-    const finalWordsArray = [];
-    for (let i = 0; i < count; i++) {
-      const word = this.word();
-      finalWordsArray.push(word);
-    }
+    const wordsAmount = params.wordsCount ? params.wordsCount : 10;
+    const words = this.words(wordsAmount);
     if (params.join) {
-      return params.asArray ? finalWordsArray : finalWordsArray.join(params.join);
+      return params.asArray ? words : words.join(params.join);
     }
-    return params.asArray ? finalWordsArray : finalWordsArray.join(' ');
+    return params.asArray ? words : words.join(' ');
   }
 
   paragraph(wordsCount = 50) {
