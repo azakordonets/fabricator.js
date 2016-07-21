@@ -2,6 +2,7 @@ import Alpha from './alpha';
 import Calendar from './calendar';
 import Contact from './contact';
 import Internet from './internet';
+import Mobile from './mobile';
 
 import Words from './words';
 export default class Fabricator {
@@ -25,6 +26,10 @@ export default class Fabricator {
 
   internet() {
     return new Internet(this.lang);
+  }
+
+  mobile() {
+    return new Mobile(this.lang);
   }
 
   text() {
