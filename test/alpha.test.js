@@ -7,10 +7,6 @@ const isInt = number => Number(number) === number && number % 1 === 0;
 
 const isFloat = number => String(number).includes('.');
 
-function isInRange(number, min, max) {
-  return number >= min && number <= max;
-}
-
 /**
  * Int numbers tests
  */
@@ -34,8 +30,10 @@ function randomNumberWithCustomRange(t, min, max) {
   t.true(isInt(number1));
   t.true(isInt(number2));
   t.true(number1 !== number2);
-  t.true(isInRange(number1, min, max));
-  t.true(isInRange(number2, min, max));
+  t.true(number1 >= min);
+  t.true(number1 <= max);
+  t.true(number2 >= min);
+  t.true(number2 <= max);
 }
 
 randomNumberWithCustomRange.title = (providedTitle, min, max) =>
