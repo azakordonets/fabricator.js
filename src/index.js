@@ -3,6 +3,7 @@ import Calendar from './calendar';
 import Contact from './contact';
 import Internet from './internet';
 import Mobile from './mobile';
+import UserAgent from './userAgent';
 
 import Words from './words';
 export default class Fabricator {
@@ -30,6 +31,10 @@ export default class Fabricator {
 
   mobile() {
     return new Mobile(this.lang);
+  }
+
+  userAgent() {
+    return new UserAgent(this.lang);
   }
 
   text() {
