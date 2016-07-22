@@ -43,6 +43,12 @@ test(`Should generate random ${userAgent.macPlatformToken()} mac platform token`
   t.regex(part2, /10_[5-8]_[0-9]/);
 });
 
+test(`Should generate random ${userAgent.safari()} safari agent`, t => {
+  const safari = userAgent.safari();
+  const keyWords = ['(KHTML, like Gecko)', 'Safari', 'AppleWebKit'];
+  keyWords.map(keyword => t.true(safari.indexOf(keyword) > -1));
+});
+
 test(`Should generate random ${userAgent.chrome()} chrome name`, t => {
   const chrome = userAgent.chrome();
   const keyWords = ['(KHTML, like Gecko)', 'Chrome', 'AppleWebKit', 'Safari'];
