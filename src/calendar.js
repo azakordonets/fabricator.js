@@ -1,7 +1,6 @@
 import UtilityService from './utility';
 import Alphanumeric from './alpha';
-import DateRange from './entities/dateRange';
-import moment from 'moment';
+import RandomDate from './entities/randomDate';
 
 export default class Calendar {
 
@@ -61,22 +60,26 @@ export default class Calendar {
     return this.alpha.randomNumber({ min, max });
   }
 
-  date(options = { format: 'DD-MM-YYYY', asString: false }) {
-    let randomDate = new Date(`${this.month({ asNumber: true })}-${this.day()}-${this.year()}`);
-    while (Object.prototype.toString.call(randomDate) !== '[object Date]') {
-      randomDate = this.date({ format: options.format, asString: options.asString });
+  date(options = { asString: false }) {
+    const format = options.format ? options.format : 'YYYY-MM-DD';
+    let asString = options.asString;
+    if (options.format) {
+      asString = true;
     }
-    if (options.asString || options.format !== 'DD-MM-YYYY') {
-      return moment(randomDate).format(options.format);
+    if (asString) {
+      return this.customDate()
+                              .asString(format)
+                              .get();
     }
-    return randomDate;
+    return this.customDate().get();
+  }
+
+  customDate() {
+    return new RandomDate();
   }
 
   century() {
     return this.utility.getValue('calendar.centuries');
   }
 
-  static dateRange() {
-    return new DateRange();
-  }
 }
