@@ -7,41 +7,27 @@ export default class Alphanumeric {
     this.lang = lang;
   }
 
-  randomNumber(params = { min: 0, max: 1000 }) {
-    const min = params.min ? params.min : 0;
-    const max = params.max ? params.max : 1000;
+  randomNumber({ min = 0, max = 1000 } = {}) {
     return Math.floor(getRandomNumber(min, max));
   }
 
-  randomFloat(params = { min: 0, max: 1000, precision: 5 }) {
-    const min = params.min ? params.min : 0;
-    const max = params.max ? params.max : 1000;
-    const precision = params.precision ? params.precision : 5;
+  randomFloat({ min = 0, max = 1000, precision = 5 } = {}) {
     return (getRandomNumber(min, max)).toPrecision(precision);
   }
 
-  listOfRandomNumbers(params = { amount: 100, min: 0, max: 1000 }) {
-    const min = params.min ? params.min : 0;
-    const max = params.max ? params.max : 1000;
-    const amount = params.amount ? params.amount : 5;
+  listOfRandomNumbers({ amount = 100, min = 0, max = 1000 } = {}) {
     return new Array(amount).fill(this.randomNumber({ min, max }));
   }
 
-  listOfRandomFloats(params = { amount: 100, min: 0, max: 1000, precision: 5 }) {
-    const min = params.min ? params.min : 0;
-    const max = params.max ? params.max : 1000;
-    const amount = params.amount ? params.amount : 5;
-    const precision = params.precision ? params.precision : 5;
+  listOfRandomFloats({ amount = 100, min = 0, max = 1000, precision = 5 } = {}) {
     return new Array(amount).fill(this.randomFloat({ min, max, precision }));
   }
 
-  string(params = {}) {
-    const from = params.from ? params.from :
-      '0123456789abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_';
-    const amount = params.max ? params.max : 30;
+  string({from = '0123456789abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_',
+  max = 30 } = {}) {
     const charsArray = [];
-    for (let index = 0; index < amount; index++) {
-      charsArray.push(from[this.randomNumber({ min: 0, max: from.length - 1 })]);
+    for (let index = 0; index < max; index++) {
+      charsArray.push(from[this.randomNumber({ max: from.length - 1 })]);
     }
     return charsArray.join('');
   }
@@ -51,7 +37,7 @@ export default class Alphanumeric {
   }
 
   numerify(pattern) {
-    return pattern.replace(/#/g, this.randomNumber({ min: 0, max: 9 }));
+    return pattern.replace(/#/g, this.randomNumber({ max: 9 }));
   }
 
   botify(pattern) {
