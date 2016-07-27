@@ -23,7 +23,7 @@ export default class Alphanumeric {
     return new Array(amount).fill(this.randomFloat({ min, max, precision }));
   }
 
-  string({from = '0123456789abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_',
+  string({ from = '0123456789abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_',
   max = 30 } = {}) {
     const charsArray = [];
     for (let index = 0; index < max; index++) {
