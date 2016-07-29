@@ -165,6 +165,29 @@ test(`Generate random ${contact.phoneNumber('##-##-##-##-##')} phone number with
     }
   });
 
+test(`Generate random ${contact.streetName()} street name`, t => {
+  const street = contact.streetName();
+  const streetsArray = utility.getValuesArray('address.street_suffix');
+  t.true(contains(streetsArray, street));
+});
+
+test(`Generate random ${contact.houseNumber()} house number`, t => {
+  const houseNumber = contact.houseNumber();
+  const houseNumersArray = utility.getValuesArray('address.house_number');
+  t.true(contains(houseNumersArray, houseNumber.replace(/\d/g, '#')));
+});
+
+test(`Generate random ${contact.apartmentNumber()} house number`, t => {
+  const apartmentNumber = contact.apartmentNumber();
+  const houseNumersArray = utility.getValuesArray('address.app_number');
+  t.true(contains(houseNumersArray, apartmentNumber.replace(/\d/g, '#')));
+});
+
+test(`Generate random ${contact.address()} address`, t => {
+  const address = contact.address();
+  t.true(address.split(' ').length > 0);
+});
+
 test(`Generate random ${contact.postcode()} postcode`, t => {
   const postCode = contact.postcode();
   const postCodeArray = utility.getValuesArray('address.postcode');
