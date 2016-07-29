@@ -27,13 +27,13 @@ export default class Contact {
     return this.utility.getValue('name.last_name');
   }
 
-  fullName(options = { usePrefix: false, useSuffix: false }) {
+  fullName({ usePrefix = false, useSuffix = false } = {}) {
     let prefixValue = '';
-    if (options.usePrefix) {
+    if (usePrefix) {
       prefixValue = this.namePrefix();
     }
     let suffixValue = '';
-    if (options.useSuffix) {
+    if (useSuffix) {
       suffixValue = this.nameSuffix();
     }
 
@@ -43,21 +43,10 @@ export default class Contact {
     return `${prefixValue} ${firstNameValue} ${lastNameValue} ${suffixValue}`.trim();
   }
 
-  birthDate(options = {
-    age: this.alpha.randomNumber({ min: 18, max: 60 }),
-    format: 'DD-MM-YYYY', asString: false,
-  }) {
-    const now = new Date();
-    // Initialize this consts in case options passed but not with all parameters included
-    const age = options.age ? options.age : this.alpha.randomNumber({ min: 18, max: 60 });
-    const format = options.format ? options.format : 'DD-MM-YYYY';
-    const asString = options.asString ? options.asString : false;
-    const randomDate = this.calendar.date();
-    if (asString) {
-      const birthDate = new Date(randomDate.setYear(now.getFullYear() - age));
-      return moment(birthDate).format(format);
-    }
-    return new Date(randomDate.setYear(now.getYear() - age));
+  birthDate({ age = this.alpha.randomNumber({ min: 18, max: 60 }),
+                        format = 'YYYY-MM-DD', asString = false } = {}) {
+    const randomBirthDate = this.calendar.date().year(moment().year() - age);
+    return asString ? randomBirthDate.format(format) : randomBirthDate;
   }
 
   email(specificDomain = '') {

@@ -2,29 +2,11 @@ import test from 'ava';
 import Fabricator from '../src/index';
 import UtilityService from '../src/utility';
 import _ from 'lodash';
-import Calendar from '../src/calendar';
 
 const fabricator = new Fabricator();
 const calendar = fabricator.calendar();
-const alpha = fabricator.alpha();
 const util = new UtilityService();
 
-const dateDiffInMillis = (date1, date2) =>
-Math.abs(date2.getTime() - date1.getTime());
-
-const dayDifferenceInSeconds = (date1, date2) =>
-Math.round(dateDiffInMillis(date1, date2) / 1000);
-
-
-const minuteDifferenceBetweenDates = (date1, date2) =>
-  Math.round(dayDifferenceInSeconds(date1, date2) / 60);
-
-
-const hourDifferenceBetweenDates = (date1, date2) =>
-  Math.round(minuteDifferenceBetweenDates(date1, date2) / 60);
-
-const dayDifferenceBetweenDays = (date1, date2) =>
-  Math.round(hourDifferenceBetweenDates(date1, date2) / 24);
 
 test('Calendar returns random day of the week', t => {
   const dayOfTheWeek = calendar.dayOfWeek();
@@ -161,271 +143,112 @@ test('Calendar returns random date as Date object', t => {
 test('Calendar returns random date as string', t => {
   const randomDate = calendar.date({ asString: true });
   t.true(typeof randomDate === 'string');
+  t.regex(randomDate, /\d{4}-\d{2}-\d{2}/);
 });
 
-test(`Calendar returns random ${calendar.date({ format: 'DD-MM-YY' })} with custom format`, t => {
-  const randomDate = calendar.date({ format: 'DD-MM-YY' });
+test(`Calendar returns random ${calendar.date({ format: 'DD-MM-YYYY' })} with custom format`, t => {
+  const randomDate = calendar.date({ format: 'DD-MM-YYYY' });
   t.regex(randomDate, /\d{2}-\d{2}-\d{2}/);
 });
 
-
-/**
- * Date Range tests
- */
-
-test('Calendar returns default date range', t => {
-  const dateRange = Calendar.dateRange().get();
-  t.deepEqual(dateRange.length, 11, 'Length of default date range');
-  for (let i = 0; i <= dateRange.length - 2; i++) {
-    const day1 = dateRange[i];
-    const dayAfterDay1 = dateRange[i + 1];
-    const differenceBetweenDays = dayDifferenceBetweenDays(day1, dayAfterDay1);
-    t.true(differenceBetweenDays >= 28);
-    t.true(differenceBetweenDays <= 31);
+test('Calendar returns random date in specific day', t => {
+  for (let i = 0; i < 10; i++) {
+    const date = calendar.customDate().
+    inDay(31).
+    get();
+    t.is(date.date(), 31, `${date.format('YYYY-MM-DD')} doesn't seem to have required day`);
   }
 });
 
-const dateStartValuesTest = (t, value, valueType, rangeLength, rangeLengthDelta) => {
-  let generatedDateRange;
-
-  switch (valueType) {
-    case 'minute' :
-      generatedDateRange = Calendar.dateRange().withStartMinute(value).get();
-      break;
-    case 'hour' :
-      generatedDateRange = Calendar.dateRange().withStartHour(value).get();
-      break;
-    case 'day':
-      generatedDateRange = Calendar.dateRange().withStartDay(value).get();
-      break;
-    case 'month':
-      generatedDateRange = Calendar.dateRange().withStartMonth(value).get();
-      break;
-    default :
-      generatedDateRange = Calendar.dateRange().withStartDay(value).get();
-  }
-
-
-  const amountInRange = generatedDateRange.length >= rangeLength - rangeLengthDelta
-    && generatedDateRange.length <= rangeLength + rangeLengthDelta;
-  t.true(amountInRange, `Length of default ${valueType} date range`);
-
-  for (let i = 0; i <= generatedDateRange.length - 2; i++) {
-    const day1 = generatedDateRange[i];
-    const dayAfterDay1 = generatedDateRange[i + 1];
-    const differenceBetweenDays = dayDifferenceBetweenDays(day1, dayAfterDay1);
-
-    t.true(differenceBetweenDays >= 28);
-    t.true(differenceBetweenDays <= 31);
-  }
-};
-
-dateStartValuesTest.title = (providedTitle, value, valueType) =>
-`${providedTitle} with start ${valueType} = ${value}`;
-
-
-test('Calendar returns default date range',
-  dateStartValuesTest, alpha.randomNumber({ min: 1, max: 59 }), 'minute', 12, 1);
-
-test('Calendar returns default date range',
-  dateStartValuesTest, calendar.hour24(), 'hour', 11, 1);
-
-test('Calendar returns default date range',
-  dateStartValuesTest, calendar.day() - 1, 'day', 11, 1);
-
-test('Calendar returns default date range',
-  dateStartValuesTest, new Date().getMonth(), 'month', 11, 1);
-
-
-test('Calendar returns default date range with start year' +
-      `set to ${new Date().getFullYear()} year`, t => {
-  const startYear = new Date().getFullYear();
-  const endYear = new Date().getFullYear() + 5;
-  const dateRange = Calendar.dateRange()
-                                        .withStartYear(startYear)
-                                        .withEndYear(endYear)
-                                        .stepEvery(1, 'year')
-                                        .get();
-  t.is(dateRange.length, 4);
-  for (let i = 0; i < dateRange.length - 1; i++) {
-    const date = dateRange[i];
-    const nextDate = dateRange[i + 1];
-    const yearDifference = nextDate.getFullYear() - date.getFullYear();
-    t.true(yearDifference === 1);
-    t.true(date.getFullYear() >= startYear);
-    t.true(date.getFullYear() <= endYear);
+test('Calendar returns random date in specific month', t => {
+  const month = 3;
+  for (let i = 0; i <= 10; i++) {
+    const date = calendar.customDate().
+                                      inMonth(month).
+                                      get();
+    t.is(date.month(), month);
   }
 });
 
-
-/**
- * End range tests
- */
-
-const dateEndValuesTest = (t, value, valueType, rangeLength, rangeLengthDelta) => {
-  let generatedDateRange;
-
-  switch (valueType) {
-    case 'minute' :
-      generatedDateRange = Calendar.dateRange().withEndMinute(value).get();
-      break;
-    case 'hour' :
-      generatedDateRange = Calendar.dateRange().withEndHour(value).get();
-      break;
-    case 'day':
-      generatedDateRange = Calendar.dateRange().withEndDay(value).get();
-      break;
-    case 'month':
-      generatedDateRange = Calendar.dateRange().withEndMonth(value).get();
-      break;
-    default :
-      generatedDateRange = Calendar.dateRange().withEndDay(value).get();
-  }
-
-
-  const amountInRange = generatedDateRange.length >= rangeLength - rangeLengthDelta
-    && generatedDateRange.length <= rangeLength + rangeLengthDelta;
-  t.true(amountInRange, `Length of default ${valueType} date range`);
-
-
-  for (let i = 0; i <= generatedDateRange.length - 2; i++) {
-    const day1 = generatedDateRange[i];
-    const dayAfterDay1 = generatedDateRange[i + 1];
-    const differenceBetweenDays = dayDifferenceBetweenDays(day1, dayAfterDay1);
-
-    t.true(differenceBetweenDays >= 28);
-    t.true(differenceBetweenDays <= 31);
-  }
-};
-
-dateEndValuesTest.title = (providedTitle, value, valueType) =>
-  `${providedTitle} with start ${valueType} = ${value}`;
-
-
-test('Calendar returns default date range',
-  dateEndValuesTest, alpha.randomNumber({ min: 1, max: 59 }), 'minute', 12, 1);
-
-test('Calendar returns default date range',
-  dateEndValuesTest, calendar.hour24(), 'hour', 11, 1);
-
-test('Calendar returns default date range',
-  dateEndValuesTest, calendar.day() - 1, 'day', 11, 1);
-
-test('Calendar returns default date range',
-  dateEndValuesTest, new Date().getMonth(), 'month', 11, 1);
-
-test('Calendar returns date range with minute step', t => {
-  const dateRange = Calendar.dateRange()
-                                        .withStartMinute(0)
-                                        .withStartHour(0)
-                                        .withStartDay(5)
-                                        .withStartMonth(3)
-                                        .withStartYear(2016)
-                                        .withEndMinute(0)
-                                        .withEndHour(0)
-                                        .withEndDay(6)
-                                        .withEndMonth(3)
-                                        .withEndYear(2016)
-                                        .stepEvery(1, 'minute')
-                                        .get();
-  t.is(dateRange.length, 1439);
-  for (let i = 0; i < dateRange.length - 1; i++) {
-    const date = dateRange[i];
-    const nextDate = dateRange[i + 1];
-    t.is(minuteDifferenceBetweenDates(nextDate, date), 1);
+test('Calendar returns random date in specific year', t => {
+  const year = new Date().getFullYear() - 2;
+  for (let i = 0; i <= 10; i++) {
+    const date = calendar.customDate().
+                                      inYear(year).
+                                      get();
+    t.is(date.year(), year);
   }
 });
 
-test('Calendar returns date range with hour step', t => {
-  const dateRange = Calendar.dateRange()
-    .withStartMinute(0)
-    .withStartHour(0)
-    .withStartDay(5)
-    .withStartMonth(3)
-    .withStartYear(2016)
-    .withEndMinute(0)
-    .withEndHour(0)
-    .withEndDay(6)
-    .withEndMonth(3)
-    .withEndYear(2016)
-    .stepEvery(1, 'hour')
-    .get();
-  t.is(dateRange.length, 23);
-  for (let i = 0; i < dateRange.length - 1; i++) {
-    const date = dateRange[i];
-    const nextDate = dateRange[i + 1];
-    t.is(hourDifferenceBetweenDates(nextDate, date), 1);
-  }
+test('Calendar returns random date with custom format', t => {
+  const date = calendar.customDate()
+      .asString('DD-MM-YY')
+      .get();
+  t.regex(date, /\d{2}-\d{2}-\d{2}/);
 });
 
-test('Calendar returns date range with day step', t => {
-  const dateRange = Calendar.dateRange()
-    .withStartMinute(0)
-    .withStartHour(0)
-    .withStartDay(5)
-    .withStartMonth(3)
-    .withStartYear(2016)
-    .withEndMinute(0)
-    .withEndHour(0)
-    .withEndDay(5)
-    .withEndMonth(4)
-    .withEndYear(2016)
-    .stepEvery(1, 'day')
-    .get();
-  t.is(dateRange.length, 29);
-  for (let i = 0; i < dateRange.length - 1; i++) {
-    const date = dateRange[i];
-    const nextDate = dateRange[i + 1];
-    t.is(dayDifferenceBetweenDays(nextDate, date), 1);
-  }
+test('Calendar returns error if day and month are specified', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inDay(10).
+    inMonth(2).
+    get();
+  }, 'We only support now specifying one value at a time. ' +
+      'Either day, month or year. No combinations');
 });
 
-test('Calendar returns date range with month step', t => {
-  const dateRange = Calendar.dateRange()
-    .withStartMinute(0)
-    .withStartHour(0)
-    .withStartDay(5)
-    .withStartMonth(3)
-    .withStartYear(2016)
-    .withEndMinute(0)
-    .withEndHour(0)
-    .withEndDay(5)
-    .withEndMonth(12)
-    .withEndYear(2016)
-    .stepEvery(1, 'month')
-    .get();
-  t.is(dateRange.length, 8);
-  for (let i = 0; i < dateRange.length - 1; i++) {
-    const date = dateRange[i];
-    const nextDate = dateRange[i + 1];
-    t.true(dayDifferenceBetweenDays(nextDate, date) >= 30 ||
-           dayDifferenceBetweenDays(nextDate, date) <= 31);
-  }
+test('Calendar returns error if day and year are specified', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inDay(10).
+    inYear(2015).
+    get();
+  }, 'We only support now specifying one value at a time. ' +
+      'Either day, month or year. No combinations');
 });
 
-test('Calendar returns date range as string with default format', t => {
-  const dateRange = Calendar.dateRange()
-    .withStartDay(5)
-    .withStartMonth(3)
-    .withStartYear(2016)
-    .withEndDay(10)
-    .withEndMonth(5)
-    .withEndYear(2016)
-    .asString()
-    .get();
-  dateRange.map(date => t.regex(date, /\d{2}-\d{2}-\d{4}/));
+test('Calendar returns error if month and year are specified', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inMonth(10).
+    inYear(2015).
+    get();
+  }, 'We only support now specifying one value at a time. ' +
+      'Either day, month or year. No combinations');
 });
 
-test('Calendar returns date range as string with custom format', t => {
-  const dateRange = Calendar.dateRange()
-    .withStartDay(5)
-    .withStartMonth(3)
-    .withStartYear(2016)
-    .withEndDay(10)
-    .withEndMonth(5)
-    .withEndYear(2016)
-    .asString('DD-MM-YY')
-    .get();
-  dateRange.map(date => t.regex(date, /\d{2}-\d{2}-\d{2}/));
+test('Calendar returns error if day is set to <= 0', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inDay(0).
+    get();
+  }, 'Day should be in 0-31 range');
+
+  t.throws(() => {
+    calendar.customDate().
+    inDay(-2).
+    get();
+  }, 'Day should be in 0-31 range');
 });
 
+test('Calendar returns error if month is set to <= 1 or >=13', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inMonth(-1).
+    get();
+  }, 'Month should be in 1-12 range');
+
+  t.throws(() => {
+    calendar.customDate().
+    inMonth(13).
+    get();
+  }, 'Month should be in 1-12 range');
+});
+
+test('Calendar returns error if year is <= 1900', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inYear(1900).
+    get();
+  }, 'Year should not be less then 1900');
+});

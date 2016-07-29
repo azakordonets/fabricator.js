@@ -97,7 +97,7 @@ test('Generates birthdate with default parameters', t => {
   const now = new Date();
   const minBirthDateYear = now.getFullYear() - 60;
   const maxBirthDateYear = now.getFullYear() - 16;
-  const yearOfBirth = birthDate.getFullYear();
+  const yearOfBirth = birthDate.year();
   t.true(yearOfBirth >= minBirthDateYear && yearOfBirth <= maxBirthDateYear);
 });
 
@@ -108,7 +108,7 @@ test('Generates birthdate with specific year of birth', t => {
 
   const now = new Date();
   const expectedYearOfBirth = now.getFullYear() - specificAge;
-  t.true(birthDate.getFullYear() === (expectedYearOfBirth));
+  t.true(birthDate.year() === (expectedYearOfBirth));
 });
 
 test('Generates birthdate with specific year of birth as a string', t => {
@@ -117,8 +117,8 @@ test('Generates birthdate with specific year of birth as a string', t => {
   t.true(typeof birthday === 'string', 'Birthdate returned as a String');
   const now = new Date();
   const expectedYearOfBirth = now.getFullYear() - specificAge;
-  t.regex(birthday, /\d{2}-\d{2}-\d{4}/, `Birthdate date is ${birthday}`);
-  t.is(birthday.split('-')[2], String(expectedYearOfBirth));
+  t.regex(birthday, /\d{4}-\d{2}-\d{2}/, `Birthdate date is ${birthday}`);
+  t.is(birthday.split('-')[0], String(expectedYearOfBirth));
 });
 
 test('Generates birthDate with custom format', t => {

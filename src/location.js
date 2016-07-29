@@ -10,44 +10,44 @@ import randomLanguage from 'random-lang';
 
 export default class Location {
 
-  static geoJson(params = { fixed: 2 }) {
-    return geoJson(params);
+  static geoJson({ fixed = 2 } = {}) {
+    return geoJson({ fixed });
   }
 
-  static geoHash(params = { length: 7 }) {
-    return geoHash(params);
+  static geoHash({ length = 7 } = {}) {
+    return geoHash({ length });
   }
 
-  static altitude(params = { min: 0, max: 8488, fixed: 5, inFeet: false, asString: false }) {
-    const altitude = randomAltitude(params);
-    if (params.inFeet) {
-      return params.asString ? `${altitude * 3.28084}ft` : altitude * 3.28084;
+  static altitude({ min = 0, max = 8488, fixed = 5, inFeet = false, asString = false } = {}) {
+    const altitude = randomAltitude({ min, max, fixed });
+    if (inFeet) {
+      return asString ? `${altitude * 3.28084}ft` : altitude * 3.28084;
     }
-    return params.asString ? `${altitude}m` : altitude;
+    return asString ? `${altitude}m` : altitude;
   }
 
-  static depth(params = { min: -10994, max: 0, fixed: 5, inFeet: false, asString: false }) {
-    const depth = randomDepth(params);
-    if (params.inFeet) {
-      return params.asString ? `${depth * 3.28084}ft` : depth * 3.28084;
+  static depth({ min = -10994, max = 0, fixed = 5, inFeet = false, asString = false } = {}) {
+    const depth = randomDepth({ min, max, fixed });
+    if (inFeet) {
+      return asString ? `${depth * 3.28084}ft` : depth * 3.28084;
     }
-    return params.asString ? `${depth}m` : depth;
+    return asString ? `${depth}m` : depth;
   }
 
-  static latitude(params = { min: -90, max: 90, fixed: 5 }) {
-    return randomLatitude(params);
+  static latitude({ min = -90, max = 90, fixed = 5 } = {}) {
+    return randomLatitude({ min, max, fixed });
   }
 
-  static longitude(params = { min: -180, max: 180, fixed: 5 }) {
-    return randomLongitude(params);
+  static longitude({ min = -180, max = 180, fixed = 5 } = {}) {
+    return randomLongitude({ min, max, fixed });
   }
 
-  static coordinates(params = { fixed: 5 }) {
-    return randomCoordinates(params);
+  static coordinates({ fixed = 5 } = {}) {
+    return randomCoordinates({ fixed });
   }
 
-  static country(params = { full: false }) {
-    return randomCountry(params);
+  static country({ full = false } = {}) {
+    return randomCountry({ full });
   }
 
   static language() {

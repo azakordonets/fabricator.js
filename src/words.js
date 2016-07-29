@@ -18,13 +18,12 @@ export default class Words {
     return words;
   }
 
-  sentence(params = { wordsCount: 10, asArray: false }) {
-    const wordsAmount = params.wordsCount ? params.wordsCount : 10;
-    const words = this.words(wordsAmount);
-    if (params.join) {
-      return params.asArray ? words : words.join(params.join);
+  sentence({ wordsCount = 10, asArray = false, join = ' ' } = {}) {
+    const words = this.words(wordsCount);
+    if (join) {
+      return asArray ? words : words.join(join);
     }
-    return params.asArray ? words : words.join(' ');
+    return asArray ? words : words.join(' ');
   }
 
   paragraph(wordsCount = 50) {

@@ -76,11 +76,11 @@ export default class UserAgent {
 
   firefox() {
     const version = [
-      `Gecko/${this.calendar.date().setFullYear(2011).toString()}` +
+      `Gecko/${this.calendar.date().year(2011).toString()}` +
       ` Firefox/${this.alpha.randomNumber({ min: 4, max: 15 })}.0`,
-      `Gecko/${this.calendar.date().setFullYear(2011).toString()}` +
+      `Gecko/${this.calendar.date().year(2011).toString()}` +
       ` Firefox/3.6.${this.alpha.randomNumber({ min: 1, max: 20 })}`,
-      `Gecko/${this.calendar.date().setFullYear(2011).toString()} Firefox/3.8`,
+      `Gecko/${this.calendar.date().year(2011).toString()} Firefox/3.8`,
     ];
 
     const windowsTemplate = `(${this.windowsPlatformToken()};` +
