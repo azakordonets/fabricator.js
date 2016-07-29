@@ -151,8 +151,8 @@ test(`Calendar returns random ${calendar.date({ format: 'DD-MM-YYYY' })} with cu
   t.regex(randomDate, /\d{2}-\d{2}-\d{2}/);
 });
 
-test.skip('Calendar returns random date in specific day', t => {
-  for (let i = 0; i <= 10; i++) {
+test('Calendar returns random date in specific day', t => {
+  for (let i = 0; i < 10; i++) {
     const date = calendar.customDate().
     inDay(31).
     get();
@@ -160,7 +160,7 @@ test.skip('Calendar returns random date in specific day', t => {
   }
 });
 
-test.skip('Calendar returns random date in specific month', t => {
+test('Calendar returns random date in specific month', t => {
   const month = 3;
   for (let i = 0; i <= 10; i++) {
     const date = calendar.customDate().
@@ -170,7 +170,7 @@ test.skip('Calendar returns random date in specific month', t => {
   }
 });
 
-test.skip('Calendar returns random date in specific year', t => {
+test('Calendar returns random date in specific year', t => {
   const year = new Date().getFullYear() - 2;
   for (let i = 0; i <= 10; i++) {
     const date = calendar.customDate().
@@ -178,4 +178,77 @@ test.skip('Calendar returns random date in specific year', t => {
                                       get();
     t.is(date.year(), year);
   }
+});
+
+test('Calendar returns random date with custom format', t => {
+  const date = calendar.customDate()
+      .asString('DD-MM-YY')
+      .get();
+  t.regex(date, /\d{2}-\d{2}-\d{2}/);
+});
+
+test('Calendar returns error if day and month are specified', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inDay(10).
+    inMonth(2).
+    get();
+  }, 'We only support now specifying one value at a time. ' +
+      'Either day, month or year. No combinations');
+});
+
+test('Calendar returns error if day and year are specified', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inDay(10).
+    inYear(2015).
+    get();
+  }, 'We only support now specifying one value at a time. ' +
+      'Either day, month or year. No combinations');
+});
+
+test('Calendar returns error if month and year are specified', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inMonth(10).
+    inYear(2015).
+    get();
+  }, 'We only support now specifying one value at a time. ' +
+      'Either day, month or year. No combinations');
+});
+
+test('Calendar returns error if day is set to <= 0', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inDay(0).
+    get();
+  }, 'Day should be in 0-31 range');
+
+  t.throws(() => {
+    calendar.customDate().
+    inDay(-2).
+    get();
+  }, 'Day should be in 0-31 range');
+});
+
+test('Calendar returns error if month is set to <= 1 or >=13', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inMonth(-1).
+    get();
+  }, 'Month should be in 1-12 range');
+
+  t.throws(() => {
+    calendar.customDate().
+    inMonth(13).
+    get();
+  }, 'Month should be in 1-12 range');
+});
+
+test('Calendar returns error if year is <= 1900', t => {
+  t.throws(() => {
+    calendar.customDate().
+    inYear(1900).
+    get();
+  }, 'Year should not be less then 1900');
 });

@@ -20,7 +20,7 @@ export default class RandomDate {
   }
 
   inMonth(month) {
-    this.month = month;
+    this.month = month + 1;
     this.useSpecifiedMonth = true;
     return this;
   }
@@ -38,28 +38,42 @@ export default class RandomDate {
   }
 
   get() {
-    let randomDate = moment(`${this.year}-${this.month + 1}-${this.day}`, this.format);
     // if user wanted random date in specific month/day and this date is not valid
     // then we can't help him with that
     if (this.useSpecifiedDay && this.useSpecifiedMonth && this.useSpecifiedYear) {
       throw Error('It doesn\'t makes sence to ask for random date in specific day, month, year');
     }
-    if (this.useSpecifiedDay && this.useSpecifiedMonth) {
-      if (!randomDate.isValid()) {
-        throw Error('This combinatio of day and month are not valid');
-      }
+    if ((this.useSpecifiedDay && this.useSpecifiedMonth) ||
+        (this.useSpecifiedDay && this.useSpecifiedYear) ||
+        (this.useSpecifiedMonth) && this.useSpecifiedYear) {
+      throw new Error('We only support now specifying one value at a time. ' +
+            'Either day, month or year. No combinations');
     }
-    if (this.useSpecifiedYear) {
-      if (this.year < 1900) {
-        throw Error('Year cannot be less then 1900');
-      }
+    if (this.day <= 0 || this.day >= 32) {
+      throw new Error('Day should be in 0-31 range');
     }
+    if (this.month <= 0 || this.month >= 13) {
+      throw new Error('Month should be in 1-12 range');
+    }
+
+    if (this.year <= 1900) {
+      throw new Error('Year should not be less then 1900');
+    }
+
+    let randomDate = moment(`${this.year}-${this.month}-${this.day}`, 'YYYY-MM-DD');
     while (!randomDate.isValid()) {
       if (this.useSpecifiedDay) {
-        this.month = this.cal.month();
-      }
-      if (this.useSpecifiedMonth) {
+        this.month = this.cal.month({ asNumber: true });
+        this.year = this.cal.year();
+      } else if (this.useSpecifiedMonth) {
         this.day = this.cal.day();
+        this.year = this.cal.year();
+      } else if (this.useSpecifiedYear) {
+        this.day = this.cal.day();
+        this.month = this.cal.month({ asNumber: true });
+      } else {
+        this.day = this.cal.day();
+        this.month = this.cal.month({ asNumber: true });
         this.year = this.cal.year();
       }
       randomDate = moment(`${this.year}-${this.month}-${this.day}`, 'YYYY-MM-DD');
