@@ -2,7 +2,7 @@ import test from 'ava';
 import Fabricator from '../src/index';
 import UtilityService from '../src/utility';
 import _ from 'lodash';
-import Calendar from "../src/calendar";
+import Calendar from '../src/calendar';
 
 const fabricator = new Fabricator();
 const calendar = fabricator.calendar();
@@ -237,7 +237,8 @@ test('Calendar returns default date range',
   dateStartValuesTest, new Date().getMonth(), 'month', 11, 1);
 
 
-test(`Calendar returns default date range with start year set to ${new Date().getFullYear()} year`, t => {
+test('Calendar returns default' +
+ `date range with start year set to ${new Date().getFullYear()} year`, t => {
   const startYear = new Date().getFullYear();
   const endYear = new Date().getFullYear() + 5;
   const dateRange = Calendar.dateRange()
@@ -398,7 +399,7 @@ test('Calendar returns date range with month step', t => {
     const date = dateRange[i];
     const nextDate = dateRange[i + 1];
     t.true(dayDifferenceBetweenDays(nextDate, date) >= 30 ||
-           dayDifferenceBetweenDays(nextDate, date) <= 31 );
+           dayDifferenceBetweenDays(nextDate, date) <= 31);
   }
 });
 
