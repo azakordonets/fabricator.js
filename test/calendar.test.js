@@ -1,7 +1,7 @@
+import _ from 'lodash';
 import test from 'ava';
 import Fabricator from '../src/index';
 import UtilityService from '../src/utility';
-import _ from 'lodash';
 
 const fabricator = new Fabricator();
 const calendar = fabricator.calendar();
@@ -40,7 +40,7 @@ test('Calendar returns random minute', t => {
 });
 
 test('Calendar return random hour in 24h format', t => {
-  for (let i = 0; i <= 25; i ++) {
+  for (let i = 0; i <= 25; i++) {
     const hour = calendar.hour24();
     t.true(hour >= 0);
     t.true(hour <= 24);
@@ -48,7 +48,7 @@ test('Calendar return random hour in 24h format', t => {
 });
 
 test('Calendar return random hour in 12h format', t => {
-  for (let i = 0; i <= 25; i ++) {
+  for (let i = 0; i <= 25; i++) {
     const hour = calendar.hour24(false);
     t.true(hour >= 0);
     t.true(hour <= 12);
@@ -153,9 +153,9 @@ test(`Calendar returns random ${calendar.date({ format: 'DD-MM-YYYY' })} with cu
 
 test('Calendar returns random date in specific day', t => {
   for (let i = 0; i < 10; i++) {
-    const date = calendar.customDate().
-    inDay(31).
-    get();
+    const date = calendar.customDate()
+        .inDay(31)
+        .get();
     t.is(date.date(), 31, `${date.format('YYYY-MM-DD')} doesn't seem to have required day`);
   }
 });
@@ -163,9 +163,9 @@ test('Calendar returns random date in specific day', t => {
 test('Calendar returns random date in specific month', t => {
   const month = 3;
   for (let i = 0; i <= 10; i++) {
-    const date = calendar.customDate().
-                                      inMonth(month).
-                                      get();
+    const date = calendar.customDate()
+        .inMonth(month)
+        .get();
     t.is(date.month(), month);
   }
 });
@@ -173,9 +173,9 @@ test('Calendar returns random date in specific month', t => {
 test('Calendar returns random date in specific year', t => {
   const year = new Date().getFullYear() - 2;
   for (let i = 0; i <= 10; i++) {
-    const date = calendar.customDate().
-                                      inYear(year).
-                                      get();
+    const date = calendar.customDate()
+        .inYear(year)
+        .get();
     t.is(date.year(), year);
   }
 });
@@ -189,66 +189,66 @@ test('Calendar returns random date with custom format', t => {
 
 test('Calendar returns error if day and month are specified', t => {
   t.throws(() => {
-    calendar.customDate().
-    inDay(10).
-    inMonth(2).
-    get();
+    calendar.customDate()
+        .inDay(10)
+        .inMonth(2)
+        .get();
   }, 'We only support now specifying one value at a time. ' +
       'Either day, month or year. No combinations');
 });
 
 test('Calendar returns error if day and year are specified', t => {
   t.throws(() => {
-    calendar.customDate().
-    inDay(10).
-    inYear(2015).
-    get();
+    calendar.customDate()
+        .inDay(10)
+        .inYear(2015)
+        .get();
   }, 'We only support now specifying one value at a time. ' +
       'Either day, month or year. No combinations');
 });
 
 test('Calendar returns error if month and year are specified', t => {
   t.throws(() => {
-    calendar.customDate().
-    inMonth(10).
-    inYear(2015).
-    get();
+    calendar.customDate()
+        .inMonth(10)
+        .inYear(2015)
+        .get();
   }, 'We only support now specifying one value at a time. ' +
       'Either day, month or year. No combinations');
 });
 
 test('Calendar returns error if day is set to <= 0', t => {
   t.throws(() => {
-    calendar.customDate().
-    inDay(0).
-    get();
+    calendar.customDate()
+        .inDay(0)
+        .get();
   }, 'Day should be in 0-31 range');
 
   t.throws(() => {
-    calendar.customDate().
-    inDay(-2).
-    get();
+    calendar.customDate()
+        .inDay(-2)
+        .get();
   }, 'Day should be in 0-31 range');
 });
 
 test('Calendar returns error if month is set to <= 1 or >=13', t => {
   t.throws(() => {
-    calendar.customDate().
-    inMonth(-1).
-    get();
+    calendar.customDate()
+        .inMonth(-1)
+        .get();
   }, 'Month should be in 1-12 range');
 
   t.throws(() => {
-    calendar.customDate().
-    inMonth(13).
-    get();
+    calendar.customDate()
+        .inMonth(13)
+        .get();
   }, 'Month should be in 1-12 range');
 });
 
 test('Calendar returns error if year is <= 1900', t => {
   t.throws(() => {
-    calendar.customDate().
-    inYear(1900).
-    get();
+    calendar.customDate()
+        .inYear(1900)
+        .get();
   }, 'Year should not be less then 1900');
 });

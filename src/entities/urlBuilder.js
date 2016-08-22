@@ -1,6 +1,6 @@
+import Url from 'url';
 import UtilityService from '../utility';
 import Words from '../words';
-import Url from 'url';
 
 function makeUrlParamsString(params) {
   const paramsKeys = Object.keys(params);

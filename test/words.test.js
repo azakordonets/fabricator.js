@@ -1,4 +1,5 @@
 import test from 'ava';
+
 import Fabricator from '../src/index.js';
 
 const text = new Fabricator().text();

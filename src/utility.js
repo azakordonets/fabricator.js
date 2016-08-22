@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import readFile from 'read-file-relative';
 import Alphanumeric from './alpha.js';
-import _ from 'lodash';
+
 export default class UtilityService {
 
   constructor(lang = 'us') {

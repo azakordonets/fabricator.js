@@ -1,6 +1,7 @@
 import UtilityService from './utility';
 import Alphanumeric from './alpha';
 import Calendar from './calendar';
+
 export default class UserAgent {
   constructor(lang = 'us') {
     this.lang = lang;

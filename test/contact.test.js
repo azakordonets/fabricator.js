@@ -134,7 +134,7 @@ test(`Generates random ${contact.email()} email`, t => {
 });
 
 test(`Generate random ${contact.email('google.com')} email with google.com domain`, t => {
-  for (let i = 0; i < 10; i ++) {
+  for (let i = 0; i < 10; i++) {
     const specificDomain = 'google.com';
     const email = contact.email(specificDomain);
     t.regex(email, /\w{1,40}_\w{1,40}@(.*)/);
@@ -238,12 +238,12 @@ test(`Generate random ${contact.company()} company`, t => {
 test(`Generate random ${contact.bsn()} bsn`, t => {
   let bsn = contact.bsn();
   t.true(bsn <= 999999999 && bsn >= 9999999);
-  let sum = -1 * bsn % 10;
+  let sum = (-1 * bsn) % 10;
   for (let multiplier = 2; multiplier <= 100; multiplier++) {
     if (bsn > 0) {
       bsn = Math.floor(bsn / 10);
       const value = bsn % 10;
-      sum = sum + (multiplier * value);
+      sum += (multiplier * value);
     }
   }
   t.true(sum !== 0 && sum % 11 === 0);

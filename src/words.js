@@ -1,4 +1,5 @@
 import UtilityService from './utility';
+
 export default class Words {
 
   constructor(lang = 'us') {

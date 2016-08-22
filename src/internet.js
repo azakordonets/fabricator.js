@@ -1,7 +1,7 @@
+import nodeUuid from 'node-uuid';
 import UrlBuilder from './entities/urlBuilder';
 import Alphanumeric from './alpha';
 import UtilityService from './utility';
-import nodeUuid from 'node-uuid';
 import Contact from './contact';
 import Words from './words';
 
@@ -28,7 +28,7 @@ export default class Internet {
   }
 
   ip() {
-    const ip = [... new Array(4)].map(() => this.alpha.randomNumber({ max: 256 })).join('');
+    const ip = [...new Array(4)].map(() => this.alpha.randomNumber({ max: 256 })).join('');
     if (ip === '0.0.0.0' || ip === '255.255.255.255') {
       return this.ip();
     }
@@ -36,7 +36,7 @@ export default class Internet {
   }
 
   ipv6() {
-    return [... new Array(8)].map(() =>
+    return [...new Array(8)].map(() =>
       this.alpha.string({ from: 'abcdefABCDEF0123456789', max: 4 })).join(':');
   }
 

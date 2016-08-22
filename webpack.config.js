@@ -1,7 +1,8 @@
+const path = require('path');
 const webpack = require('webpack');
+
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const env = process.env.WEBPACK_ENV;
-const path = require('path');
 
 const libraryName = 'fabricator';
 

@@ -4,8 +4,8 @@ import Contact from './contact';
 import Internet from './internet';
 import Mobile from './mobile';
 import UserAgent from './userAgent';
-
 import Words from './words';
+
 export default class Fabricator {
 
   constructor(lang = 'us') {

@@ -1,8 +1,9 @@
+import moment from 'moment';
+import _ from 'lodash';
 import UtilityService from './utility';
 import Alphanumeric from './alpha';
 import Calendar from './calendar';
-import moment from 'moment';
-import _ from 'lodash';
+
 export default class Contact {
   constructor(lang = 'us') {
     this.lang = lang;

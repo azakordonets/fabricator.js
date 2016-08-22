@@ -1,5 +1,5 @@
-import Calendar from '../calendar';
 import moment from 'moment';
+import Calendar from '../calendar';
 
 export default class RandomDate {
   constructor() {
@@ -43,9 +43,11 @@ export default class RandomDate {
     if (this.useSpecifiedDay && this.useSpecifiedMonth && this.useSpecifiedYear) {
       throw Error('It doesn\'t makes sence to ask for random date in specific day, month, year');
     }
-    if ((this.useSpecifiedDay && this.useSpecifiedMonth) ||
+    if (
+        (this.useSpecifiedDay && this.useSpecifiedMonth) ||
         (this.useSpecifiedDay && this.useSpecifiedYear) ||
-        (this.useSpecifiedMonth) && this.useSpecifiedYear) {
+        (this.useSpecifiedMonth && this.useSpecifiedYear)
+    ) {
       throw new Error('We only support now specifying one value at a time. ' +
             'Either day, month or year. No combinations');
     }
