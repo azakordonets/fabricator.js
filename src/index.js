@@ -1,7 +1,6 @@
 import Alpha from './alpha';
 import Calendar from './calendar';
 import Contact from './contact';
-import Finance from './finance';
 
 export default class Fabricator {
 
@@ -22,7 +21,4 @@ export default class Fabricator {
     return new Contact(this.lang);
   }
 
-  finance() {
-    return new Finance(this.lang);
-  }
 }
