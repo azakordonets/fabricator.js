@@ -1,4 +1,4 @@
-import nodeUuid from 'node-uuid';
+import nodeUuid from 'uuid';
 import UrlBuilder from './entities/urlBuilder';
 import Alphanumeric from './alpha';
 import UtilityService from './utility';

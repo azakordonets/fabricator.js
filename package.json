@@ -78,7 +78,6 @@
     "babel-eslint": "^6.1.2",
     "lodash": "^4.13.1",
     "moment": "^2.13.0",
-    "node-uuid": "^1.4.7",
     "random-altitude": "^1.0.1",
     "random-coordinates": "^1.0.1",
     "random-country": "^1.0.1",
@@ -90,6 +89,7 @@
     "random-longitude": "^1.0.1",
     "read-file-relative": "^1.2.0",
     "rjson-search": "0.0.6",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "uuid": "^3.0.0"
   }
 }
