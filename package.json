@@ -78,7 +78,7 @@
     "babel-eslint": "^6.1.2",
     "lodash": "^4.13.1",
     "moment": "^2.13.0",
-    "node-uuid": "^1.4.7",
+    "node-uuid": "^1.4.8",
     "random-altitude": "^1.0.1",
     "random-coordinates": "^1.0.1",
     "random-country": "^1.0.1",
