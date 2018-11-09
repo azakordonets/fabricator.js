@@ -1,4 +1,7 @@
-import nodeUuid from 'node-uuid';
+import uuid1 from 'uuid/v1';
+import uuid3 from 'uuid/v3';
+import uuid4 from 'uuid/v4';
+import uuid5 from 'uuid/v5';
 import UrlBuilder from './entities/urlBuilder';
 import Alphanumeric from './alpha';
 import UtilityService from './utility';
@@ -53,9 +56,11 @@ export default class Internet {
 
   uuid(version = 4) {
     switch (version) {
-      case 1: return nodeUuid.v1();
-      case 4: return nodeUuid.v4();
-      default: return nodeUuid.v4();
+      case 1: return uuid1;
+      case 3: return uuid3;
+      case 4: return uuid4;
+      case 5: return uuid5;
+      default: return uuid4;
     }
   }
 

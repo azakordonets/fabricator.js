@@ -37,7 +37,7 @@ const config = {
         test: /(\.jsx|\.js)$/,
         loader: 'eslint-loader',
         include: [`${__dirname}/src/`,
-                  `${__dirname}/test/`],
+          `${__dirname}/test/`],
         exclude: /node_modules/,
       },
     ],
