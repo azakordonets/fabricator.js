@@ -66,7 +66,11 @@ test(`Generate random ${internet.appleToken()} apple token`, t => {
 
 test(`Generate random ${internet.ip()} ip address`, t => {
   const ip = internet.ip();
-  t.regex(ip, /\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}/);
+  t.regex(ip, /^(?:\d{1,3}\.){3}\d{1,3}$/);
+  ip.split('.').forEach(part => {
+    t.true(Number(part) >= 0);
+    t.true(Number(part) <= 255);
+  });
 });
 
 test(`Generate random ${internet.ipv6()} ipv6`, t => {
@@ -80,7 +84,7 @@ test(`Generate random ${internet.macAddress()} macaddress`, t => {
 });
 
 test(`Generate random ${internet.uuid()} UUID`, t => {
-  for (let version = 0; version <= 4; version++) {
+  for (let version = 0; version <= 5; version++) {
     let uuid;
     if (version === 0) {
       uuid = internet.uuid();
@@ -88,6 +92,7 @@ test(`Generate random ${internet.uuid()} UUID`, t => {
       uuid = internet.uuid(version);
     }
     t.true(uuid.length > 0);
+    t.regex(uuid, /^[0-9a-f-]{36}$/i);
   }
 });
 
@@ -130,6 +135,5 @@ test(`Generate random ${internet.color()} color object`, t => {
   t.true(color.blue >= 1);
   t.true(color.blue <= 256);
   t.regex(color.hex, /^#[A-Fa-f0-9]{1,6}/);
-  t.regex(color.shortHex, /^#[A-Fa-f0-9]{1,6}/);
+  t.regex(color.shortHex, /^#[A-Fa-f0-9]{3}$/);
 });
-

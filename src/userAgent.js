@@ -61,8 +61,8 @@ export default class UserAgent {
   }
 
   chrome() {
-    const saf = `${this.alpha.randomNumber({ min: 531, max: 536 })}` +
-      `${this.alpha.randomNumber({ max: 2 })}}`;
+    const saf = `${this.alpha.randomNumber({ min: 531, max: 536 })}.` +
+      `${this.alpha.randomNumber({ max: 2 })}`;
 
     const base = ` AppleWebKit/${saf} (KHTML, like Gecko) ` +
       `Chrome/${this.alpha.randomNumber({ min: 13, max: 15 })}` +

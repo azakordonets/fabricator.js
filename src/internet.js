@@ -13,6 +13,10 @@ function rgbToHex(rgbValue) {
   return hex.length === 1 ? `0${hex}` : hex;
 }
 
+function toShortHexComponent(rgbValue) {
+  return rgbToHex(rgbValue).charAt(0);
+}
+
 export default class Internet {
   constructor(lang = 'us') {
     this.lang = lang;
@@ -31,7 +35,8 @@ export default class Internet {
   }
 
   ip() {
-    const ip = [...new Array(4)].map(() => this.alpha.randomNumber({ max: 256 })).join('');
+    const octets = [...new Array(4)].map(() => this.alpha.randomNumber({ min: 0, max: 255 }));
+    const ip = octets.join('.');
     if (ip === '0.0.0.0' || ip === '255.255.255.255') {
       return this.ip();
     }
@@ -55,13 +60,15 @@ export default class Internet {
   }
 
   uuid(version = 4) {
-    switch (version) {
-      case 1: return uuid1;
-      case 3: return uuid3;
-      case 4: return uuid4;
-      case 5: return uuid5;
-      default: return uuid4;
-    }
+    const uuidByVersion = {
+      1: () => uuid1(),
+      3: () => uuid3(this.alpha.string({ max: 32 }), uuid3.DNS),
+      4: () => uuid4(),
+      5: () => uuid5(this.alpha.string({ max: 32 }), uuid5.DNS),
+    };
+
+    const generator = uuidByVersion[version] || uuid4;
+    return generator();
   }
 
   username() {
@@ -104,10 +111,10 @@ export default class Internet {
     const green = this.alpha.randomNumber({ min: 1, max: 256 });
     const blue = this.alpha.randomNumber({ min: 1, max: 256 });
     const hex = `#${rgbToHex(red)}${rgbToHex(green)}${rgbToHex(blue)}`;
-    const shortHex = hex.substring(0, 4);
+    const shortHex = `#${toShortHexComponent(red)}` +
+      `${toShortHexComponent(green)}${toShortHexComponent(blue)}`;
     return { red, green, blue, hex, shortHex };
   }
 
 
 }
-

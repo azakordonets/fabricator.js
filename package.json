@@ -4,8 +4,8 @@
   "description": "Generate fake test data",
   "main": "lib/fabricator.js",
   "scripts": {
-    "build": "webpack --mode=build",
-    "dev": "webpack --progress --colors --watch --mode=dev",
+    "build": "WEBPACK_ENV=build webpack",
+    "dev": "webpack --progress --colors --watch",
     "lint": "node_modules/eslint/bin/eslint.js . --fix",
     "test": "ava \"test/*.test.js\" --verbose",
     "coverage": "nyc npm t",
@@ -36,6 +36,7 @@
     "eslint-plugin-react": "^6.1.2",
     "eslint-watch": "^2.1.11",
     "estraverse-fb": "^1.3.1",
+    "json-loader": "^0.5.7",
     "nyc": "^13.1.0",
     "pre-commit": "^1.1.3",
     "sinon": "^1.17.4",
@@ -78,7 +79,6 @@
     "babel-eslint": "^6.1.2",
     "lodash": "^4.13.1",
     "moment": "^2.13.0",
-    "uuid": "^3.3.2",
     "random-altitude": "^1.0.1",
     "random-coordinates": "^1.0.1",
     "random-country": "^1.0.1",
@@ -88,8 +88,8 @@
     "random-lang": "^1.0.2",
     "random-latitude": "^1.0.1",
     "random-longitude": "^1.0.1",
-    "read-file-relative": "^1.2.0",
     "rjson-search": "0.0.6",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "uuid": "^3.3.2"
   }
 }
