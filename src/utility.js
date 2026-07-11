@@ -1,14 +1,31 @@
 import _ from 'lodash';
-import readFile from 'read-file-relative';
 import Alphanumeric from './alpha.js';
+import deResources from './resources/de.json';
+import nlResources from './resources/nl.json';
+import usResources from './resources/us.json';
+import deWords from './resources/words_de.json';
+import nlWords from './resources/words_nl.json';
+import usWords from './resources/words_us.json';
+
+const resourcesByLang = {
+  de: deResources,
+  nl: nlResources,
+  us: usResources,
+};
+
+const wordsByLang = {
+  de: deWords,
+  nl: nlWords,
+  us: usWords,
+};
 
 export default class UtilityService {
 
   constructor(lang = 'us') {
     this.lang = lang;
-    this.resourceFileName = `/resources/${this.lang}.json`;
     this.alpha = new Alphanumeric();
-    this.wordsFileName = `/resources/words_${this.lang}.json`;
+    this.resourceData = resourcesByLang[this.lang] || resourcesByLang.us;
+    this.wordData = wordsByLang[this.lang] || wordsByLang.us;
   }
 
   getValue(name) {
@@ -17,15 +34,11 @@ export default class UtilityService {
   }
 
   getValuesArray(name) {
-    const data = readFile.readSync(this.resourceFileName);
-    const json = JSON.parse(data);
-    return _.at(json, name)[0];
+    return _.at(this.resourceData, name)[0];
   }
 
   getWord() {
-    const words = readFile.readSync(this.wordsFileName);
-    const json = JSON.parse(words);
-    const wordsArray = _.at(json, 'words')[0];
+    const wordsArray = _.at(this.wordData, 'words')[0];
     return wordsArray[_.random(0, wordsArray.length - 1)];
   }
 

@@ -16,11 +16,11 @@ export default class Alphanumeric {
   }
 
   listOfRandomNumbers({ amount = 100, min = 0, max = 1000 } = {}) {
-    return new Array(amount).fill(this.randomNumber({ min, max }));
+    return [...new Array(amount)].map(() => this.randomNumber({ min, max }));
   }
 
   listOfRandomFloats({ amount = 100, min = 0, max = 1000, precision = 5 } = {}) {
-    return new Array(amount).fill(this.randomFloat({ min, max, precision }));
+    return [...new Array(amount)].map(() => this.randomFloat({ min, max, precision }));
   }
 
   string({ from = '0123456789abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_',

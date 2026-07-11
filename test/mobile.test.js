@@ -26,7 +26,7 @@ test(`Generate random ${mobile.applePushToken()} apple ID`, t => {
 test(`Generate random ${mobile.wp8Anid2()} windows 8 id`, t => {
   const windows8Id = mobile.wp8Anid2();
   const expectedString = '0123456789abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
-  const decodedId = new Buffer(windows8Id, 'utf-8').toString();
+  const decodedId = Buffer.from(windows8Id, 'utf-8').toString();
   decodedId.split('').map(char => t.true(expectedString.indexOf(char) > -1));
 });
 

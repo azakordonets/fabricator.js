@@ -16,7 +16,7 @@ export default class Mobile {
   }
 
   wp8Anid2() {
-    return new Buffer(this.alpha.string(), 'utf-8').toString();
+    return Buffer.from(this.alpha.string(), 'utf-8').toString();
   }
 
   wp7Anid() {

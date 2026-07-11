@@ -53,6 +53,7 @@ test(`Should generate random ${userAgent.chrome()} chrome name`, t => {
   const chrome = userAgent.chrome();
   const keyWords = ['(KHTML, like Gecko)', 'Chrome', 'AppleWebKit', 'Safari'];
   keyWords.map(keyword => t.true(chrome.indexOf(keyword) > -1));
+  t.false(chrome.includes('}'));
 });
 
 test(`Should generate random ${userAgent.firefox()} firefox agent`, t => {
